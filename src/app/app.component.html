@@ -43,6 +43,21 @@
 </header>
 
 <main>
+	<form method="post">
+		<label>
+			Rows:
+			<input type="number" placeholder="1-1000" min="1" max="1000" name="numRows" required />
+		</label>
+		<label>
+			Columns:
+			<input type="number" placeholder="1-702" min="1" max="702" name="numCols" required />
+		</label>
+		<label>
+			Colors:
+			<input type="number" placeholder="1-10" min="1" max="10" name="numColors" required />
+		</label>
+		<input type="submit" value="Go!" />
+	</form>
 	<div class="left-float color-selector">holder for color selector</div>
 	<div class="right-float grid">holder for grid</div>
 </main>
