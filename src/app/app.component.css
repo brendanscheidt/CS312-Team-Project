@@ -1,0 +1,28 @@
+.color-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.color-table th,
+.color-table td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media print {
+  * {
+    color: #000 !important;
+    background: white !important;
+  }
+  .color-table {
+    filter: grayscale(100%);
+  }
+  select,
+  input[type='radio'],
+  button {
+    display: none;
+  }
+}
