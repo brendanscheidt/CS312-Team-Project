@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'cs312-team-project';
   numRows = 0;
   numCols = 0;
+  numColors = 0;
   colLabels: string[] = [];
   showTables = false;
 
@@ -35,14 +36,16 @@ export class AppComponent {
     const form = event.target as HTMLFormElement;
     const rows = parseInt((form.elements.namedItem('numRows') as HTMLInputElement).value);
     const cols = parseInt((form.elements.namedItem('numCols') as HTMLInputElement).value);
+    const colors = parseInt((form.elements.namedItem('numColors') as HTMLInputElement).value);
 
-    if (isNaN(rows) || isNaN(cols) || rows < 1 || rows > 1000 || cols < 1 || cols > 702) {
+    if (isNaN(rows) || isNaN(cols) || isNaN(colors) || rows < 1 || rows > 1000 || cols < 1 || cols > 702 || colors < 1 || colors > 10) {
       alert('Please enter valid values within the ranges.');
       return;
     }
 
     this.numRows = rows;
     this.numCols = cols;
+    this.numColors = colors;
     this.colLabels = this.getExcelColumnLabels(cols);
     this.showTables = true;
   }
