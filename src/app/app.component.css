@@ -1,3 +1,17 @@
+:root {
+  --dark-purple: #762A83;
+  --light-purple: #9970AB;
+  --dark-green: #1B7837;
+  --light-green: #5AAE61;
+  --yellow: #FFEE99;
+}
+
+h1 {
+  background-color: var(--dark-purple);
+  color: black;
+  height: 100px;
+}
+
 .color-table {
   border-collapse: collapse;
   width: 100%;
@@ -12,9 +26,40 @@
   cursor: pointer;
 }
 
+.color-selection {
+  border-collapse: collapse;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.color-selection td {
+  border: 1px solid #ccc;
+  padding: 6px;
+
+}
+
+.select-left {
+  width: 20%;
+}
+
+.radio {
+  float: left;
+}
+
+.select-right {
+  width: 80%;
+}
+
+.color-block {
+  background-color: red;
+  width: 80%;
+  height: 20px;
+  float: right;
+}
+
 @media print {
   * {
-    color: #000 !important;
+    color: black !important;
     background: white !important;
   }
   .color-table {

@@ -6,7 +6,6 @@
 <!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <header>
 	<h1> Team 2 </h1>
 </header>
@@ -31,8 +30,23 @@
 
 	<!-- Color Picker Table Goes Here -->
 	<div *ngIf="showTables">
-		COLOR SELECTION TABLE
+		<h2>COLOR SELECTION TABLE</h2>
+		<table class="color-selection">
+			<tr *ngFor="let row of [].constructor(numColors); let i = index">
+				<td class="select-left">
+					<div class="radio">                                
+						<input type="radio" name="flavor" value="1" checked>
+					</div>
+					<div class="color-block" id={i}>
+
+					</div>
+				</td>
+				<td class="select-right">
+				</td>
+			</tr>
+		</table>
 	</div>
+
 
 
 	<div *ngIf="showTables">
