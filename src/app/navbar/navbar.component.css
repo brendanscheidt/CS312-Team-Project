@@ -1,0 +1,16 @@
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 1em;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
