@@ -4,20 +4,28 @@
 
 <main>
 	<form (submit)="handleFormSubmit($event)">
-		<label>
-			Rows:
-			<input type="number" placeholder="1-1000" min="1" max="1000" name="numRows" required />
-		</label>
-		<label>
-			Columns:
-			<input type="number" placeholder="1-702" min="1" max="702" name="numCols" required />
-		</label>
-		<label>
-			Colors:
-			<input type="number" placeholder="1-10" min="1" max="10" name="numColors" required />
-		</label>
-		<input type="submit" value="Go!" />
-	</form>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="numRows">Rows:</label>
+      <input id="numRows" type="number" placeholder="1-1000" name="numRows" />
+    </div>
+    <div class="form-group">
+      <label for="numCols">Columns:</label>
+      <input id="numCols" type="number" placeholder="1-702" name="numCols" />
+    </div>
+    <div class="form-group">
+      <label for="numColors">Colors:</label>
+      <input id="numColors" type="number" placeholder="1-10" name="numColors" />
+      <input type="submit" value="Go!" />
+    </div>
+  </div>
+
+  <div class="error-col">
+    <div class="error" *ngIf="formErrors.numRows">{{ formErrors.numRows }}</div>
+    <div class="error" *ngIf="formErrors.numCols">{{ formErrors.numCols }}</div>
+    <div class="error" *ngIf="formErrors.numColors">{{ formErrors.numColors }}</div>
+  </div>
+</form>
 
 
 	<!-- Color Picker Table Goes Here -->

@@ -16,6 +16,12 @@ export class HomeComponent {
   colLabels: string[] = [];
   showTables = false;
 
+  formErrors = {
+    numRows: '',
+    numCols: '',
+    numColors: ''
+  };
+
   getExcelColumnLabels(count: number): string[] {
     const labels: string[] = [];
     for (let i = 0; i < count; i++) {
@@ -33,12 +39,47 @@ export class HomeComponent {
   handleFormSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const rows = parseInt((form.elements.namedItem('numRows') as HTMLInputElement).value);
-    const cols = parseInt((form.elements.namedItem('numCols') as HTMLInputElement).value);
-    const colors = parseInt((form.elements.namedItem('numColors') as HTMLInputElement).value);
+    const rowsInput = form.elements.namedItem('numRows') as HTMLInputElement;
+    const colsInput = form.elements.namedItem('numCols') as HTMLInputElement;
+    const colorsInput = form.elements.namedItem('numColors') as HTMLInputElement;
 
-    if (isNaN(rows) || isNaN(cols) || isNaN(colors) || rows < 1 || rows > 1000 || cols < 1 || cols > 702 || colors < 1 || colors > 10) {
-      alert('Please enter valid values within the ranges.');
+    const rows = parseInt(rowsInput.value);
+    const cols = parseInt(colsInput.value);
+    const colors = parseInt(colorsInput.value);
+
+    this.formErrors = {
+      numRows: '',
+      numCols: '',
+      numColors: ''
+    };
+
+    let valid = true;
+
+    if (isNaN(rows)) {
+      this.formErrors.numRows = 'Rows must be a valid number.';
+      valid = false;
+    } else if (rows < 1 || rows > 1000) {
+      this.formErrors.numRows = 'Rows must be between 1 and 1000.';
+      valid = false;
+    }
+
+    if (isNaN(cols)) {
+      this.formErrors.numCols = 'Columns must be a valid number.';
+      valid = false;
+    } else if (cols < 1 || cols > 702) {
+      this.formErrors.numCols = 'Columns must be between 1 and 702.';
+      valid = false;
+    }
+
+    if (isNaN(colors)) {
+      this.formErrors.numColors = 'Colors must be a valid number.';
+      valid = false;
+    } else if (colors < 1 || colors > 10) {
+      this.formErrors.numColors = 'Colors must be between 1 and 10.';
+      valid = false;
+    }
+
+    if (!valid) {
       return;
     }
 

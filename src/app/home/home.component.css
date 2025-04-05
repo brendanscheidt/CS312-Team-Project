@@ -57,6 +57,47 @@ h1 {
   float: right;
 }
 
+.form-row {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.form-group {
+  margin-right: 20px;
+}
+
+.error-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-top: 5px;
+  padding-top: 30px;
+  color: red;
+}
+
+.error {
+  flex: 1;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.color-table th {
+  background-color: #ccc;
+  color: #000;
+  padding: 10px;
+  border: 2px solid #000;
+}
+
+.color-table td {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+
+
 @media print {
   * {
     color: black !important;
