@@ -1,0 +1,11 @@
+.team-member {
+    width: 20%;
+    margin-top: 20px;
+    margin-left: 1%;
+    text-align: center;
+}
+
+img {
+    height: 300px;
+    justify-content: center;
+}
