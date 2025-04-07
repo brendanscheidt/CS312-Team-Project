@@ -1,5 +1,13 @@
+:root {
+  --dark-purple: #762A83;
+  --light-purple: #9970AB;
+  --dark-green: #00631e;
+  --light-green: #5AAE61;
+  --yellow: #FFEE99;
+}
+
 nav {
-  background-color: #333;
+  background-color: #762A83;
   color: #fff;
   padding: 1em;
 }

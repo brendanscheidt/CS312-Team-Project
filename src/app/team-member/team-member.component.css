@@ -1,8 +1,19 @@
+:root {
+    --dark-purple: #762A83;
+    --light-purple: #9970AB;
+    --dark-green: #00631e;
+    --light-green: #5AAE61;
+    --yellow: #FFEE99;
+  }
+
 .team-member {
+    background-color: #FFEE99;
+    border-radius: 50px;
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
+    padding: 20px;
 }
 
 .team-member p {
@@ -10,6 +21,7 @@
 }
 
 img {
+    border-radius: 20px;
     height: 300px;
     justify-content: center;
 }
