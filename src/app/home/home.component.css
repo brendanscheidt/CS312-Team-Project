@@ -7,9 +7,15 @@
 }
 
 h1 {
-  background-color: var(--dark-purple);
-  color: black;
-  height: 100px;
+  color: #00631e;
+}
+
+main {
+  background-color: #FFEE99;
+  padding: 20px;
+  border-radius: 50px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 .color-table {
@@ -35,7 +41,7 @@ h1 {
 .color-selection td {
   border: 1px solid #ccc;
   padding: 6px;
-
+  background-color: white;
 }
 
 .select-left {
