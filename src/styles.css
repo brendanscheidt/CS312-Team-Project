@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --dark-purple: #762A83;
+  --light-purple: #9970AB;
+  --dark-green: #1B7837;
+  --light-green: #5AAE61;
+  --yellow: #FFEE99;
+}
+
+#logo-print {
+  display: none;
+}
+
+@media print {
+  #logo-color {
+    display: none !important;
+  }
+
+  #logo-print {
+    display: inline !important;
+  }
+}
+

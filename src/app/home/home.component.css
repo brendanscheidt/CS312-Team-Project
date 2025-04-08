@@ -11,7 +11,7 @@ h1 {
 }
 
 main {
-  background-color: #FFEE99;
+  background-color: var(--yellow);
   padding: 20px;
   border-radius: 50px;
   text-align: center;
@@ -108,13 +108,48 @@ main {
   * {
     color: black !important;
     background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border: none !important;
+    box-shadow: none !important;
   }
-  .color-table {
-    filter: grayscale(100%);
+
+  img {
+    filter: grayscale(100%) contrast(100%) brightness(100%) !important;
   }
+
+  .color-table,
+  .color-selection,
+  .color-block {
+    filter: grayscale(100%) !important;
+  }
+
   select,
   input[type='radio'],
+  input[type='submit'],
   button {
-    display: none;
+    display: none !important;
+  }
+
+  nav,
+  header,
+  main,
+  footer {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    text-decoration: underline;
+    color: black !important;
+  }
+
+  .error,
+  .error-col {
+    color: black !important;
+  }
+
+  .color-block {
+    border: 1px solid black !important;
   }
 }
