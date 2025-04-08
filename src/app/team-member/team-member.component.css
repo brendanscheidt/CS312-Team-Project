@@ -7,7 +7,7 @@
   }
 
 .team-member {
-    background-color: #FFEE99;
+    background-color: var(--yellow);
     border-radius: 50px;
     margin-top: 20px;
     margin-left: 10px;
