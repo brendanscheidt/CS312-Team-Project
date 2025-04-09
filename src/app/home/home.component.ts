@@ -22,7 +22,7 @@ export class HomeComponent {
     numColors: ''
   };
 
-  colors = [
+  colorsList = [
     { name: 'Red', value: 'red' },
     { name: 'Orange', value: 'orange'},
     { name: 'Yellow', value: 'yellow'},
@@ -34,6 +34,8 @@ export class HomeComponent {
     { name: 'Brown', value: 'brown'}, 
     { name: 'Black', value: 'black'} 
   ];
+
+  colorsNotUsed = [{ name: '', value: ''}];
 
   selectedColors: any[] = [];
   dropdownOpen: boolean[] = [];
@@ -104,10 +106,17 @@ export class HomeComponent {
     this.numColors = colors;
     this.colLabels = this.getExcelColumnLabels(cols);
     this.showTables = true;
+    this.selectedColors = [];
+    this.colorsNotUsed = [{ name: '', value: ''}]; 
 
-    for (let i = 0; i < this.numColors; i++) {
-      this.selectedColors[i] = this.colors[i]; 
-      this.dropdownOpen[i] = false;
+    for (let i = 0; i < 10; i++) {
+      if (i < this.numColors) {
+        this.selectedColors[i] = this.colorsList[i]; 
+        this.dropdownOpen[i] = false;
+      }
+      else {
+        this.colorsNotUsed[i - this.numColors] = this.colorsList[i];
+      }
     }
   }
 
@@ -122,8 +131,10 @@ export class HomeComponent {
   }
 
   selectColor(index: number, color: any) {
-    if (!this.selectedColors.includes(color)) {
+    if (this.colorsNotUsed.includes(color)) {
+      this.colorsNotUsed[this.colorsNotUsed.indexOf(color)] = this.selectedColors[index];
       this.selectedColors[index] = color;
+
     }
     this.dropdownOpen[index] = false;
   }

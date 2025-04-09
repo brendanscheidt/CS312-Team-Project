@@ -47,7 +47,7 @@
     
             <div class="dropdown-menu" *ngIf="dropdownOpen[i]">
               <div
-                *ngFor="let color of colors"
+                *ngFor="let color of colorsNotUsed"
                 class="color-option"
                 [style.background]="color.value"
                 (click)="selectColor(i, color)"
