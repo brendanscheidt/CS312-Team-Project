@@ -12,6 +12,39 @@
 }
 
 @media print {
+  * {
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .color-option,
+  .selected-color,
+  .color-table td {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    filter: grayscale(100%) !important;
+  }
+
+  select,
+  input[type='radio'],
+  input[type='submit'],
+  button {
+    display: none !important;
+  }
+
+  nav {
+    background: white !important;
+  }
+
+  nav ul, .form-row {
+    display: none !important;
+  }
+
+  main {
+    background: white !important;
+  }
+
   #logo-color {
     display: none !important;
   }
@@ -20,4 +53,5 @@
     display: inline !important;
   }
 }
+
 
