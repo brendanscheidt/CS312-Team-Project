@@ -22,6 +22,22 @@ export class HomeComponent {
     numColors: ''
   };
 
+  colors = [
+    { name: 'Red', value: 'red' },
+    { name: 'Orange', value: 'orange'},
+    { name: 'Yellow', value: 'yellow'},
+    { name: 'Green', value: 'green'},
+    { name: 'Teal', value: 'teal'},
+    { name: 'Blue', value: 'blue'},
+    { name: 'Purple', value: 'purple'},
+    { name: 'Gray', value: 'gray'},
+    { name: 'Brown', value: 'brown'}, 
+    { name: 'Black', value: 'black'} 
+  ];
+
+  selectedColors: any[] = [];
+  dropdownOpen: boolean[] = [];
+
   getExcelColumnLabels(count: number): string[] {
     const labels: string[] = [];
     for (let i = 0; i < count; i++) {
@@ -88,6 +104,11 @@ export class HomeComponent {
     this.numColors = colors;
     this.colLabels = this.getExcelColumnLabels(cols);
     this.showTables = true;
+
+    for (let i = 0; i < this.numColors; i++) {
+      this.selectedColors[i] = this.colors[i]; 
+      this.dropdownOpen[i] = false;
+    }
   }
 
   // Alert on cell click
@@ -98,5 +119,16 @@ export class HomeComponent {
   // TODO: Needs refactoring to print correctly
   printPage() {
     window.print();
+  }
+
+  selectColor(index: number, color: any) {
+    if (!this.selectedColors.includes(color)) {
+      this.selectedColors[index] = color;
+    }
+    this.dropdownOpen[index] = false;
+  }
+
+  toggleDropdown(index: number) {
+    this.dropdownOpen[index] = !this.dropdownOpen[index];
   }
 }
