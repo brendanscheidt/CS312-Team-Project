@@ -13,6 +13,7 @@ nav {
   background-color: var(--dark-purple);
   color: #fff;
   padding: 1em;
+  border-radius: 50px;
 }
 
 nav > div {
