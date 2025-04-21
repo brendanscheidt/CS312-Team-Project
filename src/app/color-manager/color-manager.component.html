@@ -1,0 +1,114 @@
+    <h1>All Colors</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Color Name</th>
+          <th>Hex Value</th>
+          <th>Color</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{ item.name }}</td>
+          <td>{{ item.hex_value }}</td>
+          <td>
+            <div class="colorbg" [style.background]=item.hex_value></div>
+          </td>        
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="loadData()">Reload Colors</button>
+    <button (click)="toggleAddColor()">Add New Color</button>
+    <button (click)="toggleDeleteColor()">Delete Color</button>
+    <button (click)="toggleEditColor()">Edit Existing Color</button>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <div *ngIf="openForm === ColorManager.ADD">
+      <form (ngSubmit)="insertRecord()">
+        <label>
+          Name:
+          <input [(ngModel)]="newColor.name" name="name" placeholder="Black" required>
+        </label>
+        <label>
+          Hex:
+          <input [(ngModel)]="newColor.hex_value" name="hex" placeholder="#000000">
+        </label>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+
+<!--     <div *ngIf="openForm === ColorManager.DELETE">
+      <form (ngSubmit)="deleteRecord()">
+        <label for="colorSelect">Choose a color to delete:</label>
+        <select [(ngModel)]="selectedDeleteColorName" id="deleteSelect"
+      name="deleteSelect" required>
+          <option *ngFor="let item of data" [value]="item.name">
+            {{ item.name }}
+          </option>
+        </select>
+
+        <button type="submit" [disabled]="!selectedDeleteColorName">
+          Confirm Delete
+        </button>
+      </form>
+    </div> -->
+
+    <div *ngIf="openForm === ColorManager.DELETE">
+    <form *ngIf="!confirmDelete" (ngSubmit)="nextDeleteStep()">
+      <label>
+        Choose a color:
+        <select [(ngModel)]="selectedDeleteColorName" name="delsel" required>
+          <option *ngFor="let c of data" [value]="c.name">{{ c.name }}</option>
+        </select>
+      </label>
+      <button type="submit" [disabled]="!selectedDeleteColorName">Delete Color</button>
+    </form>
+
+    <form *ngIf="confirmDelete" (ngSubmit)="deleteRecord()">
+      <p>Are you sure you want to delete “{{ selectedDeleteColorName }}”?</p>
+      <button type="button" (click)="confirmDelete=false">Cancel</button>
+      <button type="submit">Yes, delete</button>
+    </form>
+  </div>
+
+    <div *ngIf="openForm === ColorManager.EDIT">
+  <form (ngSubmit)="updateRecord()">
+    <label for="colorSelect">Choose a color to edit:</label>
+      <select
+        id="colorSelect"
+        name="colorSelect"                    
+        [(ngModel)]="selectedColorForEdit"
+        (ngModelChange)="onColorSelect($event)"               
+        required
+      >
+        <option [ngValue]="null" disabled selected>Select a color</option>
+        <option *ngFor="let item of data" [ngValue]="item">
+          {{ item.name }}
+        </option>
+      </select>
+
+      <div *ngIf="selectedColorForEdit">
+        <label>
+          Name:
+          <input
+            name="editName"
+            [(ngModel)]="newColor.name"
+            placeholder="{{ selectedColorForEdit.name }}"
+            required
+          >
+        </label>
+        <label>
+          Hex:
+          <input
+            name="editHex"
+            [(ngModel)]="newColor.hex_value"
+            placeholder="{{ selectedColorForEdit.hex_value }}"
+            required
+          >
+        </label>
+        <button type="submit">Confirm Edit</button>
+      </div>
+    </form>
+  </div>

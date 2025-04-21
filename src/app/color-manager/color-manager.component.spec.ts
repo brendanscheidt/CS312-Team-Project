@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApiTestComponent } from './api-test.component';
+import { ColorManagerComponent } from './color-manager.component';
 
-describe('ApiTestComponent', () => {
-  let component: ApiTestComponent;
-  let fixture: ComponentFixture<ApiTestComponent>;
+describe('ColorManagerComponent', () => {
+  let component: ColorManagerComponent;
+  let fixture: ComponentFixture<ColorManagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApiTestComponent]
+      imports: [ColorManagerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApiTestComponent);
+    fixture = TestBed.createComponent(ColorManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

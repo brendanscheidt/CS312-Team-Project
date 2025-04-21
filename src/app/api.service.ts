@@ -3,10 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 //Test interface for structure of a relation in the DB
-export interface DataItem {
-  id?: number;
-  column1?: string;
-  column2?: string;
+export interface Color {
+  name: string;
+  hex_value: string;
 }
 
 //Makes available as a service throughout the entire app
@@ -21,21 +20,35 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   //Makes a GET request to the PHP backend. Currently set up to use test table called 'default_table'
-  getData(target: string = 'default_table', count: number = 10): Observable<DataItem[]> {
+  getData(target: string = 'default_table', count: number = 10): Observable<Color[]> {
     //Build the http GET parameters from passed in arguments
     const params = new HttpParams().set('target', target).set('count', count.toString());
     //Perform GET request and return a JSON object
-    return this.http.get<DataItem[]>(this.apiUrl, { params });
+    return this.http.get<Color[]>(this.apiUrl, { params });
   }
 
   //Makes a POST request to the PHP backend. Currently just posts test data for 2 columns of a relation
-  postData(target: string, data: { column1: string; column2: string }): Observable<any> {
+  postData(target: string, data: { name: string; hex_value: string }): Observable<any> {
     //Template string for constructing URL POST request parameters
     const url = `${this.apiUrl}?target=${target}`;
     //Set http options to have JSON type content in the POST request
     const options = {headers: {'Content-Type': 'application/json'}};
     //Perform POST request, passing in the url and the JSON payload and content header
+    console.log(url)
+    console.log(JSON.stringify(data))
+    console.log(options)
     return this.http.post(url, JSON.stringify(data), options);
+  }
+
+  deleteData(target: string, name: string): Observable<any> {
+    const params = new HttpParams().set('target', target).set('name', name);
+    return this.http.delete(this.apiUrl, { params });
+  }
+
+  putData(target: string, payload: { old_name: string; name: string; hex_value: string }): Observable<any> {
+    const url = `${this.apiUrl}?target=${target}`;
+    const options = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.put(url, JSON.stringify(payload), options);
   }
 }
 
