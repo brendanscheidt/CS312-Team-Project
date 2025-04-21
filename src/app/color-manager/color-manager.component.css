@@ -1,6 +1,188 @@
-.colorbg {
-  width: 70px;
-  height: 20px;
+table {
+  border: 3px solid;
   border-radius: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+}
+
+.color-list-table thead th {
+  font-size: 2em;
+  padding: 20px;
+  border-bottom: 3px solid black;
+}
+
+.color-list-table tbody td {
   border: 1px solid black;
 }
+
+.colorbg {
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background-color: var(--yellow);
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+
+.title h1 {
+  font-size: 3em;
+}
+
+.color-table-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.color-list-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+.color-list-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  font-size: 1.5em;
+}
+
+.table-wrapper {
+  width: 50%;
+  margin: 20px auto;
+  border: 5px solid black;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Buttons */
+
+.button-toggles {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.button-toggles button {
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--dark-green);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.button-toggles button:hover {
+  background-color: var(--light-green);
+}
+
+.button-toggles button:active {
+  transform: scale(0.97);
+}
+
+.button-toggles button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Forms */
+
+.form-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  align-self: center;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #888;
+}
+
+.form-card button {
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--dark-purple);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-right: 8px;
+}
+
+.form-card button:hover {
+  background-color: var(--light-purple);
+}
+
+.form-card button:active {
+  transform: scale(0.97);
+}
+
+.form-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-button {
+  width: 100%;
+  text-align: center;
+}
+
+.confirm-delete {
+  width: 100%;
+  text-align: center;
+}
+
+.confirm-delete p {
+  font-size: 1.5em;
+}
+
+
