@@ -41,7 +41,7 @@
 					<div class="dropdown">
             <div
               class="selected-color"
-              [style.background]="selectedColors[i]?.value"
+              [style.background]="selectedColors[i]?.hex_value"
               (click)="toggleDropdown(i)"
             ></div>
     
@@ -49,7 +49,7 @@
               <div
                 *ngFor="let color of colorsNotUsed"
                 class="color-option"
-                [style.background]="color.value"
+                [style.background]="color.hex_value"
                 (click)="selectColor(i, color)"
               ></div>
             </div>
