@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ApiService, Color } from '../api.service';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent {
   numRows = 0;
   numCols = 0;
   numColors = 0;
+  totalColors = 0;
   colLabels: string[] = [];
   showTables = false;
 
@@ -22,23 +24,32 @@ export class HomeComponent {
     numColors: ''
   };
 
-  colorsList = [
-    { name: 'Red', value: 'red' },
-    { name: 'Orange', value: 'orange'},
-    { name: 'Yellow', value: 'yellow'},
-    { name: 'Green', value: 'green'},
-    { name: 'Teal', value: 'teal'},
-    { name: 'Blue', value: 'blue'},
-    { name: 'Purple', value: 'purple'},
-    { name: 'Gray', value: 'gray'},
-    { name: 'Brown', value: 'brown'}, 
-    { name: 'Black', value: 'black'} 
-  ];
+  colorsList: Color[] = [];
 
-  colorsNotUsed = [{ name: '', value: ''}];
+  colorsNotUsed = [{name: '', hex_value: ''}];
 
   selectedColors: any[] = [];
   dropdownOpen: boolean[] = [];
+
+  constructor(private apiService: ApiService) {
+    this.loadData();
+  }
+
+  loadData(): void {
+    //Asynchronous observer makes call to backend
+    this.apiService.getData('colors').subscribe({
+      //If successful
+      next: res => {
+        //Store returned JSON data array of Colors into data array
+        this.colorsList = res;
+        this.totalColors = res.length;
+        console.log('Loaded data:', res);
+        /* this.errorMessage = ''; */
+      },
+      //If error
+      error: err => console.error('Error loading data', err)
+    });
+  }
 
   getExcelColumnLabels(count: number): string[] {
     const labels: string[] = [];
@@ -107,9 +118,9 @@ export class HomeComponent {
     this.colLabels = this.getExcelColumnLabels(cols);
     this.showTables = true;
     this.selectedColors = [];
-    this.colorsNotUsed = [{ name: '', value: ''}]; 
+    this.colorsNotUsed = [{ name: '', hex_value: ''}]; 
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < this.totalColors; i++) {
       if (i < this.numColors) {
         this.selectedColors[i] = this.colorsList[i]; 
         this.dropdownOpen[i] = false;
@@ -118,6 +129,7 @@ export class HomeComponent {
         this.colorsNotUsed[i - this.numColors] = this.colorsList[i];
       }
     }
+    console.log("colors not used: ", this.colorsNotUsed);
   }
 
   // Alert on cell click
