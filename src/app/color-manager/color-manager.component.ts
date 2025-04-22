@@ -34,6 +34,11 @@ export class ColorManagerComponent {
     this.loadData() 
   }
 
+  reloadData(): void {
+    this.loadData();
+    this.openForm = ColorManager.NONE;
+  }
+
   toggleAddColor(): void { 
     this.errorMessage = '';
     this.newColor = {name: '', hex_value: ''}; 
