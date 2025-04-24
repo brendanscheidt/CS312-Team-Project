@@ -17,19 +17,22 @@ export class HomeComponent {
   totalColors = 0;
   colLabels: string[] = [];
   showTables = false;
-
+  
   formErrors = {
     numRows: '',
     numCols: '',
     numColors: ''
   };
-
+  
   colorsList: Color[] = [];
-
+  
   colorsNotUsed = [{name: '', hex_value: ''}];
-
-  selectedColors: any[] = [];
+  
+  selectedColors: Color[] = [];
   dropdownOpen: boolean[] = [];
+  
+  activeColor: Color | null = this.selectedColors[0];
+  cellColors: string[][] = [];
 
   constructor(private apiService: ApiService) {
     this.loadData();
@@ -129,12 +132,22 @@ export class HomeComponent {
         this.colorsNotUsed[i - this.numColors] = this.colorsList[i];
       }
     }
+
+    this.cellColors = 
+      Array.from({ length: this.numRows }, () =>
+      Array.from({ length: this.colLabels.length }, () => "#ffffff")
+    );
     console.log("colors not used: ", this.colorsNotUsed);
+    console.log("cell colors: ", this.cellColors);
   }
 
-  // Alert on cell click
-  onCellClick(col: string, row: number) {
-    alert(`${col}${row}`);
+  onRadioChange(event: Event, rowColor: Color): void {
+    this.activeColor = rowColor;
+    console.log("selected color: ", rowColor);
+  }
+
+  onCellClick( i: number, j: number) {
+    this.cellColors[i][j] = this.activeColor?.hex_value || "#ffffff";
   }
 
   // TODO: Needs refactoring to print correctly
@@ -142,12 +155,16 @@ export class HomeComponent {
     window.print();
   }
 
-  selectColor(index: number, color: any) {
-    if (this.colorsNotUsed.includes(color)) {
-      this.colorsNotUsed[this.colorsNotUsed.indexOf(color)] = this.selectedColors[index];
-      this.selectedColors[index] = color;
-
+  selectColor(index: number, color: Color) {
+    for (let i = 0; i < this.numRows; i++) {
+      for (let j = 0; j < this.numCols; j++) {
+          if (this.cellColors[i][j] == this.selectedColors[index].hex_value){
+            this.cellColors[i][j] = color.hex_value;
+          }
+      }
     }
+    this.colorsNotUsed[this.colorsNotUsed.indexOf(color)] = this.selectedColors[index];
+    this.selectedColors[index] = color;
     this.dropdownOpen[index] = false;
   }
 
