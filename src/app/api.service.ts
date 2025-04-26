@@ -20,14 +20,14 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   //Makes a GET request to the PHP backend. Currently set up to use test table called 'default_table'
-  getData(target: string = 'default_table', count: number = 10): Observable<Color[]> {
+  getData(target: string = 'colors', count: number = 10): Observable<Color[]> {
     //Build the http GET parameters from passed in arguments
     const params = new HttpParams().set('target', target).set('count', count.toString());
     //Perform GET request and return a JSON object
     return this.http.get<Color[]>(this.apiUrl, { params });
   }
 
-  //Makes a POST request to the PHP backend. Currently just posts test data for 2 columns of a relation
+  //Makes a POST request to the PHP backend
   postData(target: string, data: { name: string; hex_value: string }): Observable<any> {
     //Template string for constructing URL POST request parameters
     const url = `${this.apiUrl}?target=${target}`;
@@ -62,7 +62,7 @@ export class ApiService {
 
     //Handle OPTIONS preflight requests by returning allowed methods
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         http_response_code(200);
         exit();
     }
@@ -70,7 +70,7 @@ export class ApiService {
     //DB connection parameters
     $servername = "faure";
     $username   = "bscheidt";
-    $password   = "MY_PASSWORD";
+    $password   = "830306212";
     $db         = "bscheidt";
 
     //Connect to the DB on faure
@@ -83,13 +83,13 @@ export class ApiService {
 
     //Determine http request method and set default GET parameters if not provided
     $method = $_SERVER['REQUEST_METHOD'];
-    $target = isset($_GET['target']) ? $_GET['target'] : "default_table";
+    $target = isset($_GET['target']) ? $_GET['target'] : "colors";
     $count  = isset($_GET['count'])  ? intval($_GET['count']) : 10;
 
     //Handle GET request
     if ($method === 'GET') {
         //construct select query from DB with a limit of 10 by default
-        $query = "SELECT * FROM {$target} LIMIT {$count}";
+        $query = "SELECT * FROM {$target}";
         $result = $conn->query($query);
         $data = array();
         //For all rows of returned query, store as element in an array
@@ -105,11 +105,11 @@ export class ApiService {
         $input = json_decode(file_get_contents("php://input"), true);
 
         //store in variables the request columns. These are placeholders for testing.
-        $column1 = $input['column1'];
-        $column2 = $input['column2'];
+        $name = $input['name'];
+        $hex_value = $input['hex_value'];
 
         //Construct INSERT query into target table
-        $query = "INSERT INTO {$target} (column1, column2) VALUES ('{$column1}', '{$column2}')";
+        $query = "INSERT INTO {$target} (name, hex_value) VALUES ('{$name}', '{$hex_value}')";
         //if successful
         if ($conn->query($query)) {
             //return http 201 response
@@ -118,12 +118,53 @@ export class ApiService {
             echo json_encode(["success" => "Record inserted"]);
         //if error
         } else {
-            //return http 400 response
-            http_response_code(400);
-            //debug print error and set the DB connection to have an error
-            echo json_encode(["error" => "Insert failed: " . $conn->error]);
+        // Check for duplicate‑entry error code
+            if ($conn->errno === 1062) {
+                http_response_code(409);
+                echo json_encode(["error" => "Duplicate entry: that color already exists"]);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "Insert failed: " . $conn->error]);
+            }
         }
-    //if request not a GET or POST request
+    } else if ($method === 'DELETE') {
+
+        $name = isset($_GET['name']) ? $_GET['name'] : '';
+
+        // Construct and execute the DELETE query
+        $query = "DELETE FROM {$target} WHERE name = '{$name}'";
+        if ($conn->query($query)) {
+            http_response_code(200);
+            echo json_encode(["success" => "Record deleted"]);
+        } else {
+            http_response_code(400);
+            echo json_encode(["error" => "Delete failed: " . $conn->error]);
+        }
+    } else if ($method === 'PUT') {
+        $input = json_decode(file_get_contents("php://input"), true);
+
+        $old_name = $input['old_name'];
+        $name = $input['name'];
+        $hex_value = $input['hex_value'];
+
+        $query = "UPDATE {$target} SET name = '{$name}', hex_value = '{$hex_value}' WHERE name = '{$old_name}'";
+
+        if ($conn->query($query)) {
+            //return http 201 response
+            http_response_code(201);
+            //debug print success
+            echo json_encode(["success" => "Record updated"]);
+        //if error
+        } else {
+            if ($conn->errno === 1062) {
+                http_response_code(409);
+                echo json_encode(["error" => "Duplicate entry: that color already exists"]);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "Insert failed: " . $conn->error]);
+            }
+        }
+    //if request not a GET, POST, PUT, or DELETE request
     } else {
         //set http response to 405
         http_response_code(405);
@@ -132,4 +173,5 @@ export class ApiService {
     }
     //End DB connection gracefully
     $conn->close();
-?> */
+?>
+ */
