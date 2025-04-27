@@ -106,8 +106,8 @@ export class HomeComponent {
     if (isNaN(colors)) {
       this.formErrors.numColors = 'Colors must be a valid number.';
       valid = false;
-    } else if (colors < 1 || colors > 10) {
-      this.formErrors.numColors = 'Colors must be between 1 and 10.';
+    } else if (colors < 1 || colors > this.totalColors) {
+      this.formErrors.numColors = 'Colors must be between 1 and ' + this.totalColors;
       valid = false;
     }
 

@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
       <label for="numColors">Colors:</label>
-      <input id="numColors" type="number" placeholder="1-10" name="numColors" />
+      <input id="numColors" type="number" placeholder="1-{{ totalColors }}" name="numColors" />
       <input type="submit" value="Go!" />
     </div>
   </div>
@@ -41,7 +41,7 @@
 					<div class="dropdown">
             <div
               class="selected-color"
-              [style.background]="colorOption"
+              [style.backgroundColor]="colorOption.hex_value"
               (click)="toggleDropdown(i)"
             ></div>
     
