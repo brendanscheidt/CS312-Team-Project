@@ -17,7 +17,8 @@ export class HomeComponent {
   totalColors = 0;
   colLabels: string[] = [];
   showTables = false;
-  
+  isPrintView= false;
+
   formErrors = {
     numRows: '',
     numCols: '',
@@ -137,6 +138,7 @@ export class HomeComponent {
       Array.from({ length: this.numRows }, () =>
       Array.from({ length: this.colLabels.length }, () => "#ffffff")
     );
+    this.activeColor = this.selectedColors[0];
     console.log("colors not used: ", this.colorsNotUsed);
     console.log("cell colors: ", this.cellColors);
   }
@@ -147,12 +149,20 @@ export class HomeComponent {
   }
 
   onCellClick( i: number, j: number) {
+    if(!this.isPrintView){
     this.cellColors[i][j] = this.activeColor?.hex_value || "#ffffff";
+    }
   }
 
   // TODO: Needs refactoring to print correctly
   printPage() {
-    window.print();
+    this.isPrintView = true;
+    setTimeout(() =>{
+      window.print();
+      setTimeout(() =>{
+        this.isPrintView = false;
+      }, 1000)
+    }, 50);
   }
 
   selectColor(index: number, color: Color) {
@@ -167,6 +177,26 @@ export class HomeComponent {
     this.selectedColors[index] = color;
     this.dropdownOpen[index] = false;
   }
+
+  getColorUsageSummary(): string[] {
+    const usage: { [hex: string]: string[] } = {};
+  
+    for (let i = 0; i < this.numRows; i++) {
+      for (let j = 0; j < this.numCols; j++) {
+        const color = this.cellColors[i][j];
+        if (!usage[color]) usage[color] = [];
+        const coord = `${this.colLabels[j]}${i + 1}`;
+        usage[color].push(coord);
+      }
+    }
+  
+    return this.selectedColors.map(color => {
+      const coords = usage[color.hex_value] || [];
+      coords.sort();
+      return `${color.name} (${color.hex_value}): ${coords.join(', ')}`;
+    });
+  }
+  
 
   toggleDropdown(index: number) {
     this.dropdownOpen[index] = !this.dropdownOpen[index];

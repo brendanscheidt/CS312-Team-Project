@@ -29,7 +29,7 @@
 
 
 	<!-- Color Picker Table Goes Here -->
-	<div *ngIf="showTables">
+  <div *ngIf="showTables && !isPrintView" class="color-selection-wrapper">
 		<h2>Color Selection Table</h2>
 		<table class="color-selection">
 			<tr *ngFor="let colorOption of selectedColors; let i = index">
@@ -63,6 +63,16 @@
 	</div>
 
 	<div *ngIf="showTables">
+    
+    <div *ngIf="isPrintView">
+      <h2>Color Guide</h2>
+      <ul>
+        <li *ngFor="let entry of getColorUsageSummary()">
+          {{ entry }}
+        </li>
+      </ul>
+    </div>
+
     <h2>Color Painting Table</h2>
     <table class="color-table">
       <tr>
