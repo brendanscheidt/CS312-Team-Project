@@ -12,18 +12,20 @@
 }
 
 @media print {
+  .print-hide-color-selection {
+    display: none !important;
+  }
   * {
     color: black !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
+
   .color-option,
   .selected-color,
   .color-table td {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    filter: grayscale(100%) !important;
+    background: whitesmoke !important;
   }
 
   select,
