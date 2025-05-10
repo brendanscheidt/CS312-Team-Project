@@ -61,6 +61,18 @@ main {
 
 .select-right {
   width: 80%;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+}
+
+.cells-list {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.print-view-list-item {
+  list-style-type: none;
 }
 
 .dropdown {
@@ -68,6 +80,7 @@ main {
   height: 30px;
   float: right;
   position: relative;
+  
 }
 
 .selected-color {
@@ -84,6 +97,9 @@ main {
   background: white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 10;
+  max-height: 200px;
+  overflow: scroll; 
+  border: 6px solid #444;
 }
 
 .color-option {

@@ -57,6 +57,11 @@
 
 				</td>
 				<td class="select-right">
+          <div
+            *ngFor="let cell of cellsList[i]"
+          >
+          <p class="cells-list">{{cell}}</p>
+          </div>
 				</td>
 			</tr>
 		</table>
@@ -67,7 +72,7 @@
     <div *ngIf="isPrintView">
       <h2>Color Guide</h2>
       <ul>
-        <li *ngFor="let entry of getColorUsageSummary()">
+        <li *ngFor="let entry of getColorUsageSummary()" class="print-view-list-item">
           {{ entry }}
         </li>
       </ul>
