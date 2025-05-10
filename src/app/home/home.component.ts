@@ -26,6 +26,7 @@ export class HomeComponent {
   };
   
   colorsList: Color[] = [];
+  cellsList: string[][] = [];
   
   colorsNotUsed = [{name: '', hex_value: ''}];
   
@@ -138,6 +139,10 @@ export class HomeComponent {
       Array.from({ length: this.numRows }, () =>
       Array.from({ length: this.colLabels.length }, () => "#ffffff")
     );
+    this.cellsList = 
+      Array.from({ length: this.numColors }, () =>
+      Array.from({ length: 0 }, () => "")
+    );
     this.activeColor = this.selectedColors[0];
     console.log("colors not used: ", this.colorsNotUsed);
     console.log("cell colors: ", this.cellColors);
@@ -150,7 +155,15 @@ export class HomeComponent {
 
   onCellClick( i: number, j: number) {
     if(!this.isPrintView){
-    this.cellColors[i][j] = this.activeColor?.hex_value || "#ffffff";
+      this.cellColors[i][j] = this.activeColor?.hex_value || "#ffffff";
+    }
+    const coord = `${this.colLabels[j]}${i + 1}`;
+    if (this.activeColor && !this.cellsList[this.colorsList.indexOf(this.activeColor)].includes(coord)) {
+      for (let i = 0; i < this.cellsList.length; i++) {
+        this.cellsList[i] = this.cellsList[i].filter(cell => cell != coord);
+      }
+      this.cellsList[this.colorsList.indexOf(this.activeColor)].push(coord);
+      this.cellsList[this.colorsList.indexOf(this.activeColor)].sort();
     }
   }
 
