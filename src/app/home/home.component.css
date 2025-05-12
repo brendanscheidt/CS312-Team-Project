@@ -9,6 +9,8 @@
 h1 {
   color: #00631e;
   font-size: 6em;
+  display: inline-block;
+  font-family: bebas-neue, sans-serif;
 }
 
 header {
@@ -110,6 +112,12 @@ main {
   opacity: 0.8;
 }
 
+.form-wrap {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-direction: column;
+}
 .form-row {
   display: inline-flex;
   flex-direction: row;
@@ -119,6 +127,25 @@ main {
 
 .form-group {
   margin-right: 20px;
+}
+
+.go-button {
+  background-color: #e9c5f8;
+  border: 2px solid #762A83;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.3rem;
+  border-radius: 5px;
+}
+.go-button:hover {
+  background-color: #9970AB;
+  font-weight: bold;
+  border: 2px solid #762A83;
+  border-radius: 5px;
+}
+.go-button-spacer {
+  display:flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .error-col {
@@ -148,3 +175,4 @@ main {
   padding: 10px;
   border: 1px solid #000;
 }
+
