@@ -4,6 +4,7 @@
 
 <main>
 	<form (submit)="handleFormSubmit($event)">
+  <div class = "form-wrap">
   <div class="form-row">
     <div class="form-group">
       <label for="numRows">Rows:</label>
@@ -16,8 +17,11 @@
     <div class="form-group">
       <label for="numColors">Colors:</label>
       <input id="numColors" type="number" placeholder="1-{{ totalColors }}" name="numColors" />
-      <input type="submit" value="Go!" />
     </div>
+    </div>
+    <div class = "go-button-spacer">
+      <input type="submit" value="Go!" class = "go-button"/>
+      </div>
   </div>
 
   <div class="error-col">
@@ -57,6 +61,11 @@
 
 				</td>
 				<td class="select-right">
+          <div
+            *ngFor="let cell of cellsList[i]"
+          >
+          <p class="cells-list">{{cell}}</p>
+          </div>
 				</td>
 			</tr>
 		</table>
@@ -67,7 +76,7 @@
     <div *ngIf="isPrintView">
       <h2>Color Guide</h2>
       <ul>
-        <li *ngFor="let entry of getColorUsageSummary()">
+        <li *ngFor="let entry of getColorUsageSummary()" class="print-view-list-item">
           {{ entry }}
         </li>
       </ul>
@@ -88,6 +97,6 @@
       </tr>
     </table>
 
-    <button (click)="printPage()">Print</button>
+    <button (click)="printPage()" class = "go-button">Print</button>
   </div>
 </main>
